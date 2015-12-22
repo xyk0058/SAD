@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import cn.edu.bjtu.sad.model.Laboratory;
-import cn.edu.bjtu.sad.util.DBUtil;
+import cn.edu.bjtu.sad.util.DBUtilFactory;
 
 public class MedicineDaoImp {
 	private static PreparedStatement ps;
@@ -16,7 +16,7 @@ public class MedicineDaoImp {
 	public boolean deleteMedicine(String medicine_id){
 		String sql = "delete from medicine where medicine_id = ?;";
 		
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, medicine_id);
@@ -36,7 +36,7 @@ public class MedicineDaoImp {
 		String sql = "INSERT INTO `outpatient`.`laboratory` "
 				+ "(`laboratory_name`, `patient_id`, `doctor_id`, `report`) "
 				+ "VALUES (?, ?, ?, ?);";
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, laboratory.getLaboratory_name());
@@ -52,7 +52,7 @@ public class MedicineDaoImp {
 		}
 		int laboratory_id = -1;
 		sql = "select max(laboratory_id) as id from laboratory;";
-		conn = new DBUtil().getConn();
+		conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -74,7 +74,7 @@ public class MedicineDaoImp {
 	public ArrayList<Laboratory> getLaboratoryList () {
 		ArrayList<Laboratory> list = new ArrayList<Laboratory>();
 		String sql = "select * from laboratory;";
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -102,7 +102,7 @@ public class MedicineDaoImp {
 		
 		String sql = "select * from laboratory where laboratory_id = ?;";
 		Laboratory laboratory = new Laboratory();
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, laboratory_id);

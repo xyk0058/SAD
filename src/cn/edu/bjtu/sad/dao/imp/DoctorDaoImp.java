@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import cn.edu.bjtu.sad.model.Doctor;
-import cn.edu.bjtu.sad.util.DBUtil;
+import cn.edu.bjtu.sad.util.DBUtilFactory;
 
 public class DoctorDaoImp {
 	private static PreparedStatement ps;
@@ -16,7 +16,7 @@ public class DoctorDaoImp {
 	public boolean deleteDoctor(String doctor_id){
 		String sql = "delete from doctor where doctor_id = ?;";
 		
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, doctor_id);
@@ -37,7 +37,7 @@ public class DoctorDaoImp {
 				+ "(`doctor_name`, `doctor_sex`, "
 				+ "`doctor_level`, `doctor_score`, `department_id`, `role_id`) "
 				+ "VALUES (?, ?, ?, ?, ?, ?);";
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, doctor.getDoctor_name());
@@ -55,7 +55,7 @@ public class DoctorDaoImp {
 		}
 		int doctor_id = -1;
 		sql = "select max(doctor_id) as id from doctor;";
-		conn = new DBUtil().getConn();
+		conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -79,7 +79,7 @@ public class DoctorDaoImp {
 				+ "`doctor_level`= ?, `doctor_score`= ?, `department_id`= ?, "
 				+ "`role_id`= ? WHERE (`doctor_id`= ?);";
 		
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, doctor.getDoctor_name());
@@ -104,7 +104,7 @@ public class DoctorDaoImp {
 		ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
 		String sql = "select * from doctor";
 		
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -134,7 +134,7 @@ public class DoctorDaoImp {
 		
 		String sql = "select * from doctor where doctor_id = ?;";
 		Doctor doctor = new Doctor();
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, doctor_id);

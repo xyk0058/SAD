@@ -4,11 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-import cn.edu.bjtu.sad.model.Doctor;
 import cn.edu.bjtu.sad.model.Hcard;
-import cn.edu.bjtu.sad.util.DBUtil;
+import cn.edu.bjtu.sad.util.DBUtilFactory;
 
 public class HcardDaoImp {
 	private static PreparedStatement ps;
@@ -17,7 +15,7 @@ public class HcardDaoImp {
 	public boolean deleteHcard(String hcard_id){
 		String sql = "delete from hcard where hcard_id = ?;";
 		
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, hcard_id);
@@ -37,7 +35,7 @@ public class HcardDaoImp {
 		String sql = "INSERT INTO `outpatient`.`hcard` "
 				+ "(`idcard_number`, `phone_number`, `crash_card`)"
 				+ " VALUES (?, ?, ?);";
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, hcard.getIdcard_number());
@@ -52,7 +50,7 @@ public class HcardDaoImp {
 		}
 		int hcard_id = -1;
 		sql = "select max(hcard_id) as id from hcard;";
-		conn = new DBUtil().getConn();
+		conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -75,7 +73,7 @@ public class HcardDaoImp {
 		
 		String sql = "select * from hcard where hcard_id = ?;";
 		Hcard hcard = new Hcard();
-		Connection conn = new DBUtil().getConn();
+		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, hcard_id);
