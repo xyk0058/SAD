@@ -6,6 +6,14 @@ public class Laboratory {
 	private int patient_id;
 	private int doctor_id;
 	private String report;
+	private int trade_id;
+	
+	public int getTrade_id() {
+		return trade_id;
+	}
+	public void setTrade_id(int trade_id) {
+		this.trade_id = trade_id;
+	}
 	public int getLaboratory_id() {
 		return laboratory_id;
 	}

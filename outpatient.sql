@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50610
 File Encoding         : 65001
 
-Date: 2015-12-22 17:01:46
+Date: 2015-12-22 17:24:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -76,6 +76,7 @@ CREATE TABLE `laboratory` (
   `patient_id` int(11) DEFAULT NULL,
   `doctor_id` int(11) DEFAULT NULL,
   `report` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `trade_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`laboratory_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -87,7 +88,8 @@ CREATE TABLE `medicine` (
   `medicine_id` int(11) NOT NULL AUTO_INCREMENT,
   `medicine_name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `medicine_info` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `med_price` decimal(10,2) DEFAULT NULL,
+  `medicine_price` decimal(10,2) DEFAULT NULL,
+  `medicine_num` int(11) DEFAULT NULL,
   PRIMARY KEY (`medicine_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -117,6 +119,7 @@ CREATE TABLE `prescription` (
   `doctor_id` int(11) NOT NULL,
   `medicine_list` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `evaluate_score` int(11) DEFAULT NULL,
+  `trade_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`prescription_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -151,7 +154,7 @@ CREATE TABLE `role` (
 -- ----------------------------
 DROP TABLE IF EXISTS `traderecord`;
 CREATE TABLE `traderecord` (
-  `record_id` int(11) NOT NULL AUTO_INCREMENT,
+  `trade_id` int(11) NOT NULL AUTO_INCREMENT,
   `patient_id` int(11) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `pre_time` varchar(30) COLLATE utf8_bin DEFAULT NULL,
@@ -159,7 +162,7 @@ CREATE TABLE `traderecord` (
   `trade_detail` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `isPrePay` char(1) COLLATE utf8_bin DEFAULT NULL,
   `isFinalPay` char(1) COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`record_id`)
+  PRIMARY KEY (`trade_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------

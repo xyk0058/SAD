@@ -1,12 +1,22 @@
 package cn.edu.bjtu.sad.model;
 
+import java.util.ArrayList;
+
 public class Prescription {
 	private int prescription_id;
 	private int patient_id;
 	private int doctor_id;
 	private String medicine_list;
 	private int evaluate_score;
+	private int trade_id;
+	private ArrayList<Medicine> medicineList;
 	
+	public int getTrade_id() {
+		return trade_id;
+	}
+	public void setTrade_id(int trade_id) {
+		this.trade_id = trade_id;
+	}
 	public int getPrescription_id() {
 		return prescription_id;
 	}
@@ -36,6 +46,12 @@ public class Prescription {
 	}
 	public void setEvaluate_score(int evaluate_score) {
 		this.evaluate_score = evaluate_score;
+	}
+	public ArrayList<Medicine> getMedicineList() {
+		return medicineList;
+	}
+	public void setMedicineList(ArrayList<Medicine> medicineList) {
+		this.medicineList = medicineList;
 	}
 	
 }

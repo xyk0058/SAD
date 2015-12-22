@@ -34,7 +34,7 @@ public class MedicineDaoImp {
 	
 	public int addMedicine(Medicine medicine){
 		String sql = "INSERT INTO `outpatient`.`medicine` "
-				+ "(`medicine_name`, `medicine_info`, `med_price`) "
+				+ "(`medicine_name`, `medicine_info`, `medicine_price`, `medicine_num`) "
 				+ "VALUES (?, ?, ?);";
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
@@ -42,6 +42,7 @@ public class MedicineDaoImp {
 			ps.setString(1, medicine.getMedicine_name());
 			ps.setString(2, medicine.getMedicine_info());
 			ps.setDouble(3, medicine.getMedicine_price());
+			ps.setInt(4, medicine.getMedicine_num());
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,6 +85,7 @@ public class MedicineDaoImp {
 				medicine.setMedicine_info(rs.getString("medicine_info"));
 				medicine.setMedicine_name(rs.getString("medicine_name"));
 				medicine.setMedicine_price(rs.getDouble("medicine_price"));
+				medicine.setMedicine_num(rs.getInt("medicine_num"));
 				list.add(medicine);
 			}
 		} catch (SQLException e) {
@@ -111,6 +113,7 @@ public class MedicineDaoImp {
 				medicine.setMedicine_info(rs.getString("medicine_info"));
 				medicine.setMedicine_name(rs.getString("medicine_name"));
 				medicine.setMedicine_price(rs.getDouble("medicine_price"));
+				medicine.setMedicine_num(rs.getInt("medicine_num"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -13,13 +13,13 @@ public class TradeRecordDaoImp {
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
-	public boolean deleteTradeRocord(String record_id){
-		String sql = "delete from traderecord where record_id = ?;";
+	public boolean deleteTradeRocord(String trade_id){
+		String sql = "delete from traderecord where trade_id = ?;";
 		
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, record_id);
+			ps.setString(1, trade_id);
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,14 +55,14 @@ public class TradeRecordDaoImp {
 		} finally {
 			clearUp(conn);
 		}
-		int record_id = -1;
-		sql = "select max(record_id) as id from traderecord;";
+		int trade_id = -1;
+		sql = "select max(trade_id) as id from traderecord;";
 		conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			if(rs.next()){
-				record_id = rs.getInt("id");
+				trade_id = rs.getInt("id");
 			}else{
 				return -1;
 			}
@@ -72,7 +72,7 @@ public class TradeRecordDaoImp {
 		} finally {
 			clearUp(conn);
 		}
-		return record_id;
+		return trade_id;
 	}
 	
 	
@@ -92,7 +92,7 @@ public class TradeRecordDaoImp {
 				record.setPatient_id(rs.getInt("patient_id"));
 				record.setPre_time(rs.getString("pre_time"));
 				record.setPrice(rs.getDouble("price"));
-				record.setRecord_id(rs.getInt("record_id"));
+				record.setTrade_id(rs.getInt("trade_id"));
 				record.setTrade_detail(rs.getString("trade_detail"));
 				list.add(record);
 			}
@@ -106,13 +106,13 @@ public class TradeRecordDaoImp {
 	}
 
 	
-	public TradeRecord getTradeRecord(int record_id) {
+	public TradeRecord getTradeRecord(int trade_id) {
 		TradeRecord record = new TradeRecord();
-		String sql = "select * from traderecord where record_id = ?;";
+		String sql = "select * from traderecord where trade_id = ?;";
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, record_id);
+			ps.setInt(1, trade_id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				// stupid set method......
@@ -122,7 +122,7 @@ public class TradeRecordDaoImp {
 				record.setPatient_id(rs.getInt("patient_id"));
 				record.setPre_time(rs.getString("pre_time"));
 				record.setPrice(rs.getInt("price"));
-				record.setRecord_id(rs.getInt("record_id"));
+				record.setTrade_id(rs.getInt("trade_id"));
 				record.setTrade_detail(rs.getString("trade_detail"));
 			}
 		} catch (SQLException e) {

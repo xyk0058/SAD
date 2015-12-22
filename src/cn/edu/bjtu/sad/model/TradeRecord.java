@@ -1,7 +1,7 @@
 package cn.edu.bjtu.sad.model;
 
 public class TradeRecord {
-	private int record_id;
+	private int trade_id;
 	private int patient_id;
 	private double price;
 	private String pre_time;
@@ -9,11 +9,13 @@ public class TradeRecord {
 	private String trade_detail;
 	private String isPrePay;
 	private String isFinalPay;
-	public int getRecord_id() {
-		return record_id;
+	
+	
+	public int getTrade_id() {
+		return trade_id;
 	}
-	public void setRecord_id(int record_id) {
-		this.record_id = record_id;
+	public void setTrade_id(int trade_id) {
+		this.trade_id = trade_id;
 	}
 	public int getPatient_id() {
 		return patient_id;

@@ -5,6 +5,8 @@ public class Medicine {
 	private String medicine_name;
 	private String medicine_info;
 	private double medicine_price;
+	private int medicine_num;
+	
 	public int getMedicine_id() {
 		return medicine_id;
 	}
@@ -28,5 +30,11 @@ public class Medicine {
 	}
 	public void setMedicine_price(double medicine_price) {
 		this.medicine_price = medicine_price;
+	}
+	public int getMedicine_num() {
+		return medicine_num;
+	}
+	public void setMedicine_num(int medicine_num) {
+		this.medicine_num = medicine_num;
 	}
 }

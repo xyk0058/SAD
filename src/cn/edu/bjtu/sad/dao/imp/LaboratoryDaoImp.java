@@ -34,7 +34,7 @@ public class LaboratoryDaoImp {
 	
 	public int addLaboratory(Laboratory laboratory){
 		String sql = "INSERT INTO `outpatient`.`laboratory` "
-				+ "(`laboratory_name`, `patient_id`, `doctor_id`, `report`) "
+				+ "(`laboratory_name`, `patient_id`, `doctor_id`, `report`, `trade_id`) "
 				+ "VALUES (?, ?, ?, ?);";
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
@@ -43,6 +43,7 @@ public class LaboratoryDaoImp {
 			ps.setInt(2, laboratory.getPatient_id());
 			ps.setInt(3, laboratory.getDoctor_id());
 			ps.setString(4, laboratory.getReport());
+			ps.setInt(5, laboratory.getTrade_id());
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -86,6 +87,7 @@ public class LaboratoryDaoImp {
 				laboratory.setLaboratory_name(rs.getString("laboratory_name"));
 				laboratory.setPatient_id(rs.getInt("patient_id"));
 				laboratory.setReport(rs.getString("report"));
+				laboratory.setTrade_id(rs.getInt("trade_id"));
 				list.add(laboratory);
 			}
 		} catch (SQLException e) {
@@ -115,6 +117,7 @@ public class LaboratoryDaoImp {
 				laboratory.setLaboratory_name(rs.getString("laboratory_name"));
 				laboratory.setPatient_id(rs.getInt("patient_id"));
 				laboratory.setReport(rs.getString("report"));
+				laboratory.setTrade_id(rs.getInt("trade_id"));
 				
 			}
 		} catch (SQLException e) {

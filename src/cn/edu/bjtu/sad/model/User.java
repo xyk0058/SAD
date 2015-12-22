@@ -4,7 +4,13 @@ public class User {
 	private int user_id;
 	private String user_name;
 	private String password;
-	private int right_id;
+	private int role_id;
+	public int getRole_id() {
+		return role_id;
+	}
+	public void setRole_id(int role_id) {
+		this.role_id = role_id;
+	}
 	private String phone_number;
 	public int getUser_id() {
 		return user_id;
@@ -23,12 +29,6 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public int getRight_id() {
-		return right_id;
-	}
-	public void setRight_id(int right_id) {
-		this.right_id = right_id;
 	}
 	public String getPhone_number() {
 		return phone_number;
