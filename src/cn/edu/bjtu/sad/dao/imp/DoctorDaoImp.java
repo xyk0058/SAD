@@ -6,10 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import cn.edu.bjtu.sad.dao.DoctorDao;
 import cn.edu.bjtu.sad.model.Doctor;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
-public class DoctorDaoImp {
+public class DoctorDaoImp implements DoctorDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package cn.edu.bjtu.sad.dao.imp;
 
 import java.sql.Connection;
@@ -9,24 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import cn.edu.bjtu.sad.model.Prescription;
+import cn.edu.bjtu.sad.model.TradeRecord;
+import cn.edu.bjtu.sad.model.User;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
-/**
- * @author Administrator
- *
- */
-public class PrescriptionDaoImp {
+public class UserDaoImp {
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
-	public boolean deletePrescription(String prescription_id){
-		String sql = "delete from prescription where prescription_id = ?;";
+	public boolean deleteUser(String user_id){
+		String sql = "delete from user where user_id = ?;";
 		
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, prescription_id);
+			ps.setString(1, user_id);
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -38,19 +32,16 @@ public class PrescriptionDaoImp {
 		return true;
 	}
 	
-	
-	public int addPrescription(Prescription prescription){
-		String sql = "INSERT INTO `outpatient`.`prescription` "
-				+ "(`patient_id`, `doctor_id`, "
-				+ "`medicine_list`, `evaluate_score`) "
+
+	public int addUser (User user){
+		String sql = "INSERT INTO `outpatient`.`user` "
+				+ "(`user_name`, `password`, `role_id`, `phone_number`) "
 				+ "VALUES (?, ?, ?, ?);";
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, prescription.getPatient_id());
-			ps.setInt(2, prescription.getDoctor_id());
-			ps.setString(3, prescription.getMedicine_list());
-			ps.setInt(4, prescription.getEvaluate_score());
+			ps.setString(1, user.getUser_name());
+			ps.setString();
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -58,14 +49,14 @@ public class PrescriptionDaoImp {
 		} finally {
 			clearUp(conn);
 		}
-		int prescription_id = -1;
-		sql = "select max(prescription_id) as id from prescription;";
+		int user_id = -1;
+		sql = "select max(user_id) as id from user;";
 		conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			if(rs.next()){
-				prescription_id = rs.getInt("id");
+				user_id = rs.getInt("id");
 			}else{
 				return -1;
 			}
@@ -75,26 +66,29 @@ public class PrescriptionDaoImp {
 		} finally {
 			clearUp(conn);
 		}
-		return prescription_id;
+		return user_id;
 	}
 	
 	
-	public ArrayList<Prescription> getPrescription () {
-		ArrayList<Prescription> list = new ArrayList<Prescription>();
-		String sql = "select * from prescription;";
+	public ArrayList<TradeRecord> getTradeRecord () {
+		ArrayList<TradeRecord> list = new ArrayList<TradeRecord>();
+		String sql = "select * from traderecord;";
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Prescription prescription = new Prescription();
+				TradeRecord record = new TradeRecord();
 				// stupid set method......
-				prescription.setDoctor_id(rs.getInt("doctor_id"));
-				prescription.setEvaluate_score(rs.getInt("evaluate_score"));
-				prescription.setMedicine_list(rs.getString("medicine_list"));
-				prescription.setPatient_id(rs.getInt("patient_id"));
-				prescription.setPrescription_id(rs.getInt("prescription_id"));
-				list.add(prescription);
+				record.setFinal_time(rs.getString("final_time"));
+				record.setIsFinalPay(rs.getString("isFinalPay"));
+				record.setIsPrePay(rs.getString("isPrePay"));
+				record.setPatient_id(rs.getInt("patient_id"));
+				record.setPre_time(rs.getString("pre_time"));
+				record.setPrice(rs.getDouble("price"));
+				record.setRecord_id(rs.getInt("record_id"));
+				record.setTrade_detail(rs.getString("trade_detail"));
+				list.add(record);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -106,21 +100,24 @@ public class PrescriptionDaoImp {
 	}
 
 	
-	public Prescription getPatient(int prescription_id) {
-		Prescription prescription = new Prescription();
-		String sql = "select * from prescription;";
+	public TradeRecord getTradeRecord(int record_id) {
+		TradeRecord record = new TradeRecord();
+		String sql = "select * from traderecord where record_id = ?;";
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, prescription_id);
+			ps.setInt(1, record_id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				// stupid set method......
-				prescription.setDoctor_id(rs.getInt("doctor_id"));
-				prescription.setEvaluate_score(rs.getInt("evaluate_score"));
-				prescription.setMedicine_list(rs.getString("medicine_list"));
-				prescription.setPatient_id(rs.getInt("patient_id"));
-				prescription.setPrescription_id(rs.getInt("prescription_id"));
+				record.setFinal_time(rs.getString("final_time"));
+				record.setIsFinalPay(rs.getString("isFinalPay"));
+				record.setIsPrePay(rs.getString("isPrePay"));
+				record.setPatient_id(rs.getInt("patient_id"));
+				record.setPre_time(rs.getString("pre_time"));
+				record.setPrice(rs.getInt("price"));
+				record.setRecord_id(rs.getInt("record_id"));
+				record.setTrade_detail(rs.getString("trade_detail"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -128,7 +125,7 @@ public class PrescriptionDaoImp {
 		} finally {
 			clearUp(conn);
 		}
-		return prescription;
+		return record;
 	}
 	
 	private void clearUp(Connection conn) {

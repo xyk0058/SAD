@@ -111,7 +111,7 @@ public class RegisterRecordDaoImp {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, register_id);
 			rs = ps.executeQuery();
-			while(rs.next()) {
+			if (rs.next()) {
 				// stupid set method......
 				register.setDepartment_id(rs.getInt("dempartment_id"));
 				register.setDoctor_id(rs.getInt("doctor_id"));

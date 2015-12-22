@@ -1,6 +1,3 @@
-/**
- * 
- */
 package cn.edu.bjtu.sad.dao.imp;
 
 import java.sql.Connection;
@@ -9,24 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import cn.edu.bjtu.sad.model.Prescription;
+import cn.edu.bjtu.sad.model.Role;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
-/**
- * @author Administrator
- *
- */
-public class PrescriptionDaoImp {
+public class RoleDaoImp {
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
-	public boolean deletePrescription(String prescription_id){
-		String sql = "delete from prescription where prescription_id = ?;";
+	public boolean deleteRole(String role_id){
+		String sql = "delete from role where role_id = ?;";
 		
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, prescription_id);
+			ps.setString(1, role_id);
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -38,19 +31,16 @@ public class PrescriptionDaoImp {
 		return true;
 	}
 	
-	
-	public int addPrescription(Prescription prescription){
-		String sql = "INSERT INTO `outpatient`.`prescription` "
-				+ "(`patient_id`, `doctor_id`, "
-				+ "`medicine_list`, `evaluate_score`) "
-				+ "VALUES (?, ?, ?, ?);";
+
+	public int addRole (Role role){
+		String sql = "INSERT INTO `outpatient`.`role` "
+				+ "(`role_power`, `role_describe`) "
+				+ "VALUES (?, ?);";
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, prescription.getPatient_id());
-			ps.setInt(2, prescription.getDoctor_id());
-			ps.setString(3, prescription.getMedicine_list());
-			ps.setInt(4, prescription.getEvaluate_score());
+			ps.setInt(1, role.getRole_power());
+			ps.setString(2, role.getRole_describe());
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -58,14 +48,14 @@ public class PrescriptionDaoImp {
 		} finally {
 			clearUp(conn);
 		}
-		int prescription_id = -1;
-		sql = "select max(prescription_id) as id from prescription;";
+		int role_id = -1;
+		sql = "select max(role_id) as id from role;";
 		conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			if(rs.next()){
-				prescription_id = rs.getInt("id");
+				role_id = rs.getInt("id");
 			}else{
 				return -1;
 			}
@@ -75,26 +65,24 @@ public class PrescriptionDaoImp {
 		} finally {
 			clearUp(conn);
 		}
-		return prescription_id;
+		return role_id;
 	}
 	
 	
-	public ArrayList<Prescription> getPrescription () {
-		ArrayList<Prescription> list = new ArrayList<Prescription>();
-		String sql = "select * from prescription;";
+	public ArrayList<Role> getRole () {
+		ArrayList<Role> list = new ArrayList<Role>();
+		String sql = "select * from role;";
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Prescription prescription = new Prescription();
+				Role role = new Role();
 				// stupid set method......
-				prescription.setDoctor_id(rs.getInt("doctor_id"));
-				prescription.setEvaluate_score(rs.getInt("evaluate_score"));
-				prescription.setMedicine_list(rs.getString("medicine_list"));
-				prescription.setPatient_id(rs.getInt("patient_id"));
-				prescription.setPrescription_id(rs.getInt("prescription_id"));
-				list.add(prescription);
+				role.setRole_describe(rs.getString("role_describe"));
+				role.setRole_id(rs.getInt("role_id"));
+				role.setRole_power(rs.getInt("role_power"));
+				list.add(role);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -106,21 +94,19 @@ public class PrescriptionDaoImp {
 	}
 
 	
-	public Prescription getPatient(int prescription_id) {
-		Prescription prescription = new Prescription();
-		String sql = "select * from prescription;";
+	public Role getRole (int role_id) {
+		Role role = new Role();
+		String sql = "select * from role where role_id = ?;";
 		Connection conn = new DBUtilFactory().getMysqlConn();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, prescription_id);
+			ps.setInt(1, role_id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				// stupid set method......
-				prescription.setDoctor_id(rs.getInt("doctor_id"));
-				prescription.setEvaluate_score(rs.getInt("evaluate_score"));
-				prescription.setMedicine_list(rs.getString("medicine_list"));
-				prescription.setPatient_id(rs.getInt("patient_id"));
-				prescription.setPrescription_id(rs.getInt("prescription_id"));
+				role.setRole_describe(rs.getString("role_describe"));
+				role.setRole_id(rs.getInt("role_id"));
+				role.setRole_power(rs.getInt("role_power"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -128,7 +114,7 @@ public class PrescriptionDaoImp {
 		} finally {
 			clearUp(conn);
 		}
-		return prescription;
+		return role;
 	}
 	
 	private void clearUp(Connection conn) {

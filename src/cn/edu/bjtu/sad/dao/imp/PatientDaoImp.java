@@ -113,7 +113,7 @@ public class PatientDaoImp {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, patient_id);
 			rs = ps.executeQuery();
-			while(rs.next()) {
+			if (rs.next()) {
 				// stupid set method......
 				patient.setHcard_id(rs.getInt("hcard_id"));
 				patient.setIdcard_number(rs.getString("idcard_number"));
