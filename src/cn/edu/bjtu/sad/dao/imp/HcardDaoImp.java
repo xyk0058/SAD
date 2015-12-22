@@ -5,13 +5,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import cn.edu.bjtu.sad.dao.HcardDao;
 import cn.edu.bjtu.sad.model.Hcard;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
-public class HcardDaoImp {
+/**
+ * HcardDaoImp class description
+ * code This Class is implement Hcard Table 
+ * insert,update,delete and select function.
+ * @author sunshine
+ * @see HcardDao
+ */
+
+public class HcardDaoImp implements HcardDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
+	/**
+	 * delete Hcard element from table by id
+	 * if the action is do correct,return true,else return false
+	 * @param hcard_id
+	 * @return boolean
+	 */
 	public boolean deleteHcard(String hcard_id){
 		String sql = "delete from hcard where hcard_id = ?;";
 		
@@ -30,7 +45,13 @@ public class HcardDaoImp {
 		return true;
 	}
 	
-	
+	/**
+	 * add hcard element into table
+	 * if the action is do correct,return this record hcard_id,
+	 * else return -1
+	 * @param hcard
+	 * @return hcard_id
+	 */
 	public int addHcard(Hcard hcard){
 		String sql = "INSERT INTO `outpatient`.`hcard` "
 				+ "(`idcard_number`, `phone_number`, `crash_card`)"
@@ -68,7 +89,13 @@ public class HcardDaoImp {
 		return hcard_id;
 	}
 	
-	
+	/**
+	 * get all hcard element from table by id
+	 * if the action is do correct return the hcard entity,
+	 * else return null
+	 * @param hcard_id
+	 * @return hcard
+	 */
 	public Hcard getHcard(int hcard_id) {
 		
 		String sql = "select * from hcard where hcard_id = ?;";

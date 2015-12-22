@@ -5,16 +5,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import cn.edu.bjtu.sad.dao.DepartmentDao;
 import cn.edu.bjtu.sad.model.Department;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
+/**
+ * DepartmentDaoImp class description
+ * code This Class is implement Department Table 
+ * insert,update,delete and select function.
+ * @author sunshine
+ * @see DepartmentDao
+ */
+
 public class DepartmentDaoImp implements DepartmentDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
+	/**
+	 * delete department element from table by id
+	 * if the action is do correct,return true,else return false
+	 * @param department_id
+	 * @return boolean
+	 */
 	public boolean deleteDepartment(String department_id){
 		String sql = "delete from department where department_id = ?;";
 		
@@ -33,7 +46,13 @@ public class DepartmentDaoImp implements DepartmentDao{
 		return true;
 	}
 	
-	
+	/**
+	 * add department element into table
+	 * if the action is do correct,return this record department_id,
+	 * else return -1
+	 * @param dep
+	 * @return department_id
+	 */
 	public int addDepartment(Department dep){
 		String sql = "INSERT INTO `outpatient`.`dempartment` "
 				+ "(`department_name`, `department_detail`, `avaliable_num`) "
@@ -71,6 +90,14 @@ public class DepartmentDaoImp implements DepartmentDao{
 		return department_id;
 	}
 	
+	
+	/**
+	 * update department table element
+	 * if the action is do correct,return true,
+	 * else return false
+	 * @param dep
+	 * @return boolean
+	 */
 	public boolean updateDepartment(Department dep){
 		String sql = "UPDATE `outpatient`.`dempartment` "
 				+ "SET `department_name`= ?, "
@@ -94,9 +121,16 @@ public class DepartmentDaoImp implements DepartmentDao{
 		return true;
 	}
 	
-	public List<Department> getDepartment() {
+	
+	/**
+	 * get all department element from table
+	 * if the action is do correct,return the list of department,
+	 * else return null
+	 * @return list
+	 */
+	public ArrayList<Department> getDepartment() {
 		
-		List<Department> adminList = new ArrayList<Department>();
+		ArrayList<Department> list = new ArrayList<Department>();
 		String sql = "select * from admin_list";
 		
 		Connection conn = new DBUtilFactory().getMysqlConn();
@@ -112,14 +146,14 @@ public class DepartmentDaoImp implements DepartmentDao{
 				department.setDepartment_id(rs.getInt("department_id"));
 				department.setDepartment_name(rs.getString("department_name"));
 				
-				adminList.add(department);
+				list.add(department);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			clearUp(conn);
 		}
-		return adminList;
+		return list;
 	}
 	
 	private void clearUp(Connection conn) {

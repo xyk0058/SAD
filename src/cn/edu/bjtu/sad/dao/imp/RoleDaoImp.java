@@ -6,13 +6,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import cn.edu.bjtu.sad.dao.RoleDao;
 import cn.edu.bjtu.sad.model.Role;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
-public class RoleDaoImp {
+
+/**
+ * RoleDaoImp class description
+ * code This Class is implement Role Table 
+ * insert,update,delete and select function.
+ * @author sunshine
+ * @see RoleDao
+ */
+public class RoleDaoImp implements RoleDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
+	
+	/**
+	 * delete role element from table by id
+	 * if the action is do correct,return true,else return false
+	 * @param role_id
+	 * @return boolean
+	 */
 	public boolean deleteRole(String role_id){
 		String sql = "delete from role where role_id = ?;";
 		
@@ -31,8 +47,14 @@ public class RoleDaoImp {
 		return true;
 	}
 	
-
-	public int addRole (Role role){
+	/**
+	 * add role element into table
+	 * if the action is do correct,return this record role_id,
+	 * else return -1
+	 * @param role
+	 * @return role_id
+	 */
+	public int addRole(Role role){
 		String sql = "INSERT INTO `outpatient`.`role` "
 				+ "(`role_power`, `role_describe`) "
 				+ "VALUES (?, ?);";
@@ -68,8 +90,13 @@ public class RoleDaoImp {
 		return role_id;
 	}
 	
-	
-	public ArrayList<Role> getRole () {
+	/**
+	 * get all Role element from table
+	 * if the action is do correct,return the list of Role,
+	 * else return null
+	 * @return list
+	 */
+	public ArrayList<Role> getRole() {
 		ArrayList<Role> list = new ArrayList<Role>();
 		String sql = "select * from role;";
 		Connection conn = new DBUtilFactory().getMysqlConn();
@@ -93,8 +120,14 @@ public class RoleDaoImp {
 		return list;
 	}
 
-	
-	public Role getRole (int role_id) {
+	/**
+	 * get all role element from table by id
+	 * if the action is do correct return the role entity,
+	 * else return null
+	 * @param role_id
+	 * @return role
+	 */
+	public Role getRole(int role_id) {
 		Role role = new Role();
 		String sql = "select * from role where role_id = ?;";
 		Connection conn = new DBUtilFactory().getMysqlConn();

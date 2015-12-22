@@ -6,13 +6,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import cn.edu.bjtu.sad.dao.UserDao;
 import cn.edu.bjtu.sad.model.User;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
-public class UserDaoImp {
+
+/**
+ * UserDaoImp class description
+ * This Class is implement User Table 
+ * insert,update,delete and select function.
+ * @author sunshine
+ * @see UserDao
+ */
+public class UserDaoImp implements UserDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
+	
+	/**
+	 * delete user element from table by id
+	 * if the action is do correct,return true,else return false
+	 * @param user_id
+	 * @return boolean
+	 */
 	public boolean deleteUser(String user_id){
 		String sql = "delete from user where user_id = ?;";
 		
@@ -31,7 +47,13 @@ public class UserDaoImp {
 		return true;
 	}
 	
-
+	/**
+	 * add user element into table
+	 * if the action is do correct,return this record user_id,
+	 * else return -1
+	 * @param user
+	 * @return user_id
+	 */
 	public int addUser(User user){
 		String sql = "INSERT INTO `outpatient`.`user` "
 				+ "(`user_name`, `password`, `role_id`, `phone_number`) "
@@ -71,7 +93,13 @@ public class UserDaoImp {
 	}
 	
 	
-	public ArrayList<User> getUser () {
+	/**
+	 * get all User element from table
+	 * if the action is do correct,return the list of User,
+	 * else return null
+	 * @return list
+	 */
+	public ArrayList<User> getUser() {
 		ArrayList<User> list = new ArrayList<User>();
 		String sql = "select * from user;";
 		Connection conn = new DBUtilFactory().getMysqlConn();
@@ -97,7 +125,14 @@ public class UserDaoImp {
 		return list;
 	}
 
-	
+
+	/**
+	 * get all User element from table by id
+	 * if the action is do correct return the User entity,
+	 * else return null
+	 * @param user_id
+	 * @return user
+	 */
 	public User getUser(int user_id) {
 		User user = new User();
 		String sql = "select * from user where user_id = ?;";

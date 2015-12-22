@@ -1,5 +1,12 @@
 package cn.edu.bjtu.sad.model;
 
+
+/**
+ * Role class description
+ * This Class is the class Entity mapping Role Table.
+ * Include all attributes and all get/set function.
+ * @author sunshine
+ */
 public class Role {
 	private int role_id;
 	private int role_power;

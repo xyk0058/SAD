@@ -1,5 +1,11 @@
 package cn.edu.bjtu.sad.model;
 
+/**
+ * Doctor class description
+ * This Class is the class Entity mapping Doctor Table.
+ * Include all attributes and all get/set function.
+ * @author sunshine
+ */
 public class Doctor {
 	private int doctor_id;
 	private String doctor_name;

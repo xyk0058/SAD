@@ -10,10 +10,23 @@ import cn.edu.bjtu.sad.dao.DoctorDao;
 import cn.edu.bjtu.sad.model.Doctor;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
+/**
+ * DoctorDaoImp class description
+ * code This Class is implement Doctor Table 
+ * insert,update,delete and select function.
+ * @author sunshine
+ * @see DoctorDao
+ */
 public class DoctorDaoImp implements DoctorDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
+	/**
+	 * delete doctor element from table by id
+	 * if the action is do correct,return true,else return false
+	 * @param doctor_id
+	 * @return boolean
+	 */
 	public boolean deleteDoctor(String doctor_id){
 		String sql = "delete from doctor where doctor_id = ?;";
 		
@@ -32,7 +45,13 @@ public class DoctorDaoImp implements DoctorDao{
 		return true;
 	}
 	
-	
+	/**
+	 * add doctor element into table
+	 * if the action is do correct,return this record doctor_id,
+	 * else return -1
+	 * @param doctor
+	 * @return doctor_id
+	 */
 	public int addDoctor(Doctor doctor){
 		String sql = "INSERT INTO `outpatient`.`doctor` "
 				+ "(`doctor_name`, `doctor_sex`, "
@@ -74,6 +93,14 @@ public class DoctorDaoImp implements DoctorDao{
 		return doctor_id;
 	}
 	
+	
+	/**
+	 * update doctor table element
+	 * if the action is do correct,return true,
+	 * else return false
+	 * @param doctor
+	 * @return boolean
+	 */
 	public boolean updateDoctor(Doctor doctor){
 		String sql = "UPDATE `outpatient`.`doctor` SET "
 				+ "`doctor_name`= ?, `doctor_sex`= ?, "
@@ -100,6 +127,13 @@ public class DoctorDaoImp implements DoctorDao{
 		return true;
 	}
 	
+	
+	/**
+	 * get all Doctor element from table
+	 * if the action is do correct,return the list of Doctor,
+	 * else return null
+	 * @return doctorList
+	 */
 	public ArrayList<Doctor> getDoctorList() {
 		
 		ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
@@ -131,6 +165,14 @@ public class DoctorDaoImp implements DoctorDao{
 		return doctorList;
 	}
 	
+	
+	/**
+	 * get all doctor element from table by id
+	 * if the action is do correct return the doctor entity,
+	 * else return null
+	 * @param doctor_id
+	 * @return doctor
+	 */
 	public Doctor getDoctor(int doctor_id) {
 		
 		String sql = "select * from doctor where doctor_id = ?;";

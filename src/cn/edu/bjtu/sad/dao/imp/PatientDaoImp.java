@@ -6,13 +6,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import cn.edu.bjtu.sad.dao.PatientDao;
 import cn.edu.bjtu.sad.model.Patient;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
-public class PatientDaoImp {
+
+/**
+ * PatientDaoImp class description
+ * code This Class is implement Patient Table 
+ * insert,update,delete and select function.
+ * @author sunshine
+ * @see PatientDao
+ */
+public class PatientDaoImp implements PatientDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
+	
+	/**
+	 * delete patient element from table by id
+	 * if the action is do correct,return true,else return false
+	 * @param patient_id
+	 * @return boolean
+	 */
 	public boolean deletePatient(String patient_id){
 		String sql = "delete from patient where patient_id = ?;";
 		
@@ -31,7 +47,13 @@ public class PatientDaoImp {
 		return true;
 	}
 	
-	
+	/**
+	 * add patient element into table
+	 * if the action is do correct,return this record patient_id,
+	 * else return -1
+	 * @param patient
+	 * @return patient_id
+	 */
 	public int addPatient(Patient patient){
 		String sql = "INSERT INTO `outpatient`.`patient` "
 				+ "(`patient_name`, `patient_sex`, "
@@ -75,7 +97,12 @@ public class PatientDaoImp {
 		return patient_id;
 	}
 	
-	
+	/**
+	 * get all Patient element from table
+	 * if the action is do correct,return the list of Patient,
+	 * else return null
+	 * @return list
+	 */
 	public ArrayList<Patient> getPatientList () {
 		ArrayList<Patient> list = new ArrayList<Patient>();
 		String sql = "select * from patient;";
@@ -104,7 +131,13 @@ public class PatientDaoImp {
 		return list;
 	}
 
-	
+	/**
+	 * get all patient element from table by id
+	 * if the action is do correct return the patient entity,
+	 * else return null
+	 * @param patient_id
+	 * @return patient
+	 */
 	public Patient getPatient(int patient_id) {
 		Patient patient = new Patient();
 		String sql = "select * from patient where patient_id = ?;";

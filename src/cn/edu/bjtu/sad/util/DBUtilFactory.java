@@ -4,10 +4,22 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
+/**
+ * DBUtilFactory class description
+ * This Class is the real Factory of DBUtilFactory.
+ * @author sunshine
+ */
 public class DBUtilFactory extends DBUtilAbstractFactory{
 
 	private Connection conn;
 	
+	
+	/**
+	 * getMysqlConn description
+	 * This function return Mysql connection.
+	 * @author sunshine
+	 */
 	public Connection getMysqlConn() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

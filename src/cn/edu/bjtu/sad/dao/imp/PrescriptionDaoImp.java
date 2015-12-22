@@ -9,17 +9,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import cn.edu.bjtu.sad.dao.PrescriptionDao;
 import cn.edu.bjtu.sad.model.Prescription;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
 /**
- * @author Administrator
- *
+ * PrescriptionDaoImp class description
+ * code This Class is implement Prescription Table 
+ * insert,update,delete and select function.
+ * @author sunshine
+ * @see PrescriptionDao
  */
-public class PrescriptionDaoImp {
+public class PrescriptionDaoImp implements PrescriptionDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
+	
+	/**
+	 * delete prescription element from table by id
+	 * if the action is do correct,return true,else return false
+	 * @param prescription_id
+	 * @return boolean
+	 */
 	public boolean deletePrescription(String prescription_id){
 		String sql = "delete from prescription where prescription_id = ?;";
 		
@@ -38,7 +49,13 @@ public class PrescriptionDaoImp {
 		return true;
 	}
 	
-	
+	/**
+	 * add prescription element into table
+	 * if the action is do correct,return this record prescription_id,
+	 * else return -1
+	 * @param prescription
+	 * @return prescription_id
+	 */
 	public int addPrescription(Prescription prescription){
 		String sql = "INSERT INTO `outpatient`.`prescription` "
 				+ "(`patient_id`, `doctor_id`, "
@@ -79,6 +96,12 @@ public class PrescriptionDaoImp {
 	}
 	
 	
+	/**
+	 * get all Prescription element from table
+	 * if the action is do correct,return the list of Prescription,
+	 * else return null
+	 * @return list
+	 */
 	public ArrayList<Prescription> getPrescription () {
 		ArrayList<Prescription> list = new ArrayList<Prescription>();
 		String sql = "select * from prescription;";
@@ -106,7 +129,13 @@ public class PrescriptionDaoImp {
 		return list;
 	}
 
-	
+	/**
+	 * get all prescription element from table by id
+	 * if the action is do correct return the prescription entity,
+	 * else return null
+	 * @param prescription_id
+	 * @return prescription
+	 */
 	public Prescription getPatient(int prescription_id) {
 		Prescription prescription = new Prescription();
 		String sql = "select * from prescription;";

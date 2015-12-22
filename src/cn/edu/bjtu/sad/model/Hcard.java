@@ -1,5 +1,11 @@
 package cn.edu.bjtu.sad.model;
 
+/**
+ * Hcard class description
+ * This Class is the class Entity mapping Hcard Table.
+ * Include all attributes and all get/set function.
+ * @author sunshine
+ */
 public class Hcard {
 	private int hcard_id;
 	private String idcard_number;

@@ -1,5 +1,12 @@
 package cn.edu.bjtu.sad.model;
 
+
+/**
+ * User class description
+ * This Class is the class Entity mapping User Table.
+ * Include all attributes and all get/set function.
+ * @author sunshine
+ */
 public class User {
 	private int user_id;
 	private String user_name;

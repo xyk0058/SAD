@@ -1,5 +1,12 @@
 package cn.edu.bjtu.sad.model;
 
+
+/**
+ * RegisterRecord class description
+ * This Class is the class Entity mapping RegisterRecord Table.
+ * Include all attributes and all get/set function.
+ * @author sunshine
+ */
 public class RegisterRecord {
 	private int register_id;
 	private int doctor_id;

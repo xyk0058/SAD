@@ -1,5 +1,11 @@
 package cn.edu.bjtu.sad.model;
 
+/**
+ * TradeRecord class description
+ * This Class is the class Entity mapping TradeRecord Table.
+ * Include all attributes and all get/set function.
+ * @author sunshine
+ */
 public class TradeRecord {
 	private int trade_id;
 	private int patient_id;

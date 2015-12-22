@@ -1,5 +1,12 @@
 package cn.edu.bjtu.sad.model;
 
+
+/**
+ * Medicine class description
+ * This Class is the class Entity mapping Medicine Table.
+ * Include all attributes and all get/set function.
+ * @author sunshine
+ */
 public class Medicine {
 	private int medicine_id;
 	private String medicine_name;

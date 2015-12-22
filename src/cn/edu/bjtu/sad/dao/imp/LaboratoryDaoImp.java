@@ -6,13 +6,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import cn.edu.bjtu.sad.dao.LaboratoryDao;
 import cn.edu.bjtu.sad.model.Laboratory;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
-public class LaboratoryDaoImp {
+
+/**
+ * LaboratoryDaoImp class description
+ * code This Class is implement Laboratory Table 
+ * insert,update,delete and select function.
+ * @author sunshine
+ * @see LaboratoryDao
+ */
+public class LaboratoryDaoImp implements LaboratoryDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
+	
+	/**
+	 * delete laboratory element from table by id
+	 * if the action is do correct,return true,else return false
+	 * @param laboratory_id
+	 * @return boolean
+	 */
 	public boolean deleteLaboratory(String laboratory_id){
 		String sql = "delete from laboratory where laboratory_id = ?;";
 		
@@ -31,7 +47,13 @@ public class LaboratoryDaoImp {
 		return true;
 	}
 	
-	
+	/**
+	 * add laboratory element into table
+	 * if the action is do correct,return this record laboratory_id,
+	 * else return -1
+	 * @param laboratory
+	 * @return laboratory_id
+	 */
 	public int addLaboratory(Laboratory laboratory){
 		String sql = "INSERT INTO `outpatient`.`laboratory` "
 				+ "(`laboratory_name`, `patient_id`, `doctor_id`, `report`, `trade_id`) "
@@ -71,7 +93,12 @@ public class LaboratoryDaoImp {
 		return laboratory_id;
 	}
 	
-	
+	/**
+	 * get all Laboratory element from table
+	 * if the action is do correct,return the list of Laboratory,
+	 * else return null
+	 * @return list
+	 */
 	public ArrayList<Laboratory> getLaboratoryList () {
 		ArrayList<Laboratory> list = new ArrayList<Laboratory>();
 		String sql = "select * from laboratory;";
@@ -99,7 +126,13 @@ public class LaboratoryDaoImp {
 		return list;
 	}
 
-	
+	/**
+	 * get all laboratory element from table by id
+	 * if the action is do correct return the laboratory entity,
+	 * else return null
+	 * @param laboratory_id
+	 * @return laboratory
+	 */
 	public Laboratory getLaboratory(int laboratory_id) {
 		
 		String sql = "select * from laboratory where laboratory_id = ?;";

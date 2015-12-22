@@ -6,13 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import cn.edu.bjtu.sad.dao.RegisterRecordDao;
 import cn.edu.bjtu.sad.model.RegisterRecord;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
-public class RegisterRecordDaoImp {
+/**
+ * RegisterRecordDaoImp class description
+ * code This Class is implement RegisterRecord Table 
+ * insert,update,delete and select function.
+ * @author sunshine
+ * @see RegisterRecordDao
+ */
+public class RegisterRecordDaoImp implements RegisterRecordDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
+	/**
+	 * delete register element from table by id
+	 * if the action is do correct,return true,else return false
+	 * @param register_id
+	 * @return boolean
+	 */
 	public boolean deleteRegisterRecord(String register_id){
 		String sql = "delete from registerrecord where register_id = ?;";
 		
@@ -31,7 +45,13 @@ public class RegisterRecordDaoImp {
 		return true;
 	}
 	
-
+	/**
+	 * add RegisterRecord element into table
+	 * if the action is do correct,return this record register_id,
+	 * else return -1
+	 * @param register
+	 * @return register_id
+	 */
 	public int addRegisterRecord(RegisterRecord register){
 		String sql = "INSERT INTO `outpatient`.`registerrecord` "
 				+ "(`doctor_id`, `patient_id`, `register_time`, "
@@ -73,8 +93,13 @@ public class RegisterRecordDaoImp {
 		return register_id;
 	}
 	
-	
-	public ArrayList<RegisterRecord> getRegisterRecord () {
+	/**
+	 * get all RegisterRecord element from table
+	 * if the action is do correct,return the list of RegisterRecord,
+	 * else return null
+	 * @return list
+	 */
+	public ArrayList<RegisterRecord> getRegisterRecord() {
 		ArrayList<RegisterRecord> list = new ArrayList<RegisterRecord>();
 		String sql = "select * from registerrecord;";
 		Connection conn = new DBUtilFactory().getMysqlConn();
@@ -102,7 +127,13 @@ public class RegisterRecordDaoImp {
 		return list;
 	}
 
-	
+	/**
+	 * get all RegisterRecord element from table by id
+	 * if the action is do correct return the RegisterRecord entity,
+	 * else return null
+	 * @param register_id
+	 * @return register
+	 */
 	public RegisterRecord getRegisterRecord(int register_id) {
 		RegisterRecord register = new RegisterRecord();
 		String sql = "select * from registerrecord where register_id = ?;";

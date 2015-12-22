@@ -1,5 +1,12 @@
 package cn.edu.bjtu.sad.model;
 
+
+/**
+ * Laboratory class description
+ * This Class is the class Entity mapping Laboratory Table.
+ * Include all attributes and all get/set function.
+ * @author sunshine
+ */
 public class Laboratory {
 	private int laboratory_id;
 	private String laboratory_name;

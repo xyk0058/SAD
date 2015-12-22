@@ -6,13 +6,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import cn.edu.bjtu.sad.dao.TradeRecordDao;
 import cn.edu.bjtu.sad.model.TradeRecord;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
-public class TradeRecordDaoImp {
+
+/**
+ * TradeRecordDaoImp class description
+ * This Class is implement TradeRecord Table 
+ * insert,update,delete and select function.
+ * @author sunshine
+ * @see TradeRecordDao
+ */
+
+public class TradeRecordDaoImp implements TradeRecordDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
+	/**
+	 * delete TradeRecord element from table by id
+	 * if the action is do correct,return true,else return false
+	 * @param trade_id
+	 * @return boolean
+	 */
 	public boolean deleteTradeRocord(String trade_id){
 		String sql = "delete from traderecord where trade_id = ?;";
 		
@@ -31,8 +47,14 @@ public class TradeRecordDaoImp {
 		return true;
 	}
 	
-
-	public int addTradeRecord (TradeRecord record){
+	/**
+	 * add TradeRecord element into table
+	 * if the action is do correct,return this record record_id,
+	 * else return -1
+	 * @param record
+	 * @return record_id
+	 */
+	public int addTradeRecord(TradeRecord record){
 		String sql = "INSERT INTO `outpatient`.`traderecord` "
 				+ "(`patient_id`, `price`, "
 				+ "`pre_time`, `final_time`, `trade_detail`, "
@@ -75,8 +97,14 @@ public class TradeRecordDaoImp {
 		return trade_id;
 	}
 	
-	
-	public ArrayList<TradeRecord> getTradeRecord () {
+
+	/**
+	 * get all TradeRecord element from table
+	 * if the action is do correct,return the list of TradeRecord,
+	 * else return null
+	 * @return list
+	 */
+	public ArrayList<TradeRecord> getTradeRecord() {
 		ArrayList<TradeRecord> list = new ArrayList<TradeRecord>();
 		String sql = "select * from traderecord;";
 		Connection conn = new DBUtilFactory().getMysqlConn();
@@ -105,7 +133,13 @@ public class TradeRecordDaoImp {
 		return list;
 	}
 
-	
+	/**
+	 * get all TradeRecord element from table by id
+	 * if the action is do correct return the TradeRecord entity,
+	 * else return null
+	 * @param trade_id
+	 * @return record
+	 */
 	public TradeRecord getTradeRecord(int trade_id) {
 		TradeRecord record = new TradeRecord();
 		String sql = "select * from traderecord where trade_id = ?;";

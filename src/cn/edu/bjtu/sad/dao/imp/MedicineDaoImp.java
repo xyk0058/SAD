@@ -6,13 +6,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import cn.edu.bjtu.sad.dao.MedicineDao;
 import cn.edu.bjtu.sad.model.Medicine;
 import cn.edu.bjtu.sad.util.DBUtilFactory;
 
-public class MedicineDaoImp {
+
+/**
+ * MedicineDaoImp class description
+ * code This Class is implement Medicine Table 
+ * insert,update,delete and select function.
+ * @author sunshine
+ * @see MedicineDao
+ */
+public class MedicineDaoImp implements MedicineDao{
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	
+	
+	/**
+	 * delete medicine element from table by id
+	 * if the action is do correct,return true,else return false
+	 * @param medicine_id
+	 * @return boolean
+	 */
 	public boolean deleteMedicine(String medicine_id){
 		String sql = "delete from medicine where medicine_id = ?;";
 		
@@ -31,7 +47,13 @@ public class MedicineDaoImp {
 		return true;
 	}
 	
-	
+	/**
+	 * add medicine element into table
+	 * if the action is do correct,return this record medicine_id,
+	 * else return -1
+	 * @param medicine
+	 * @return medicine_id
+	 */
 	public int addMedicine(Medicine medicine){
 		String sql = "INSERT INTO `outpatient`.`medicine` "
 				+ "(`medicine_name`, `medicine_info`, `medicine_price`, `medicine_num`) "
@@ -71,7 +93,13 @@ public class MedicineDaoImp {
 	}
 	
 	
-	public ArrayList<Medicine> getMedicineList () {
+	/**
+	 * get all Medicine element from table
+	 * if the action is do correct,return the list of Medicine,
+	 * else return null
+	 * @return list
+	 */
+	public ArrayList<Medicine> getMedicineList() {
 		ArrayList<Medicine> list = new ArrayList<Medicine>();
 		String sql = "select * from medicine;";
 		Connection conn = new DBUtilFactory().getMysqlConn();
@@ -97,7 +125,13 @@ public class MedicineDaoImp {
 		return list;
 	}
 
-	
+	/**
+	 * get all medicine element from table by id
+	 * if the action is do correct return the medicine entity,
+	 * else return null
+	 * @param medicine_id
+	 * @return medicine
+	 */
 	public Medicine getMedicine(int medicine_id) {
 		
 		Medicine medicine = new Medicine();

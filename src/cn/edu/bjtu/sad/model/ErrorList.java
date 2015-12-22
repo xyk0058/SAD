@@ -1,5 +1,11 @@
 package cn.edu.bjtu.sad.model;
 
+/**
+ * ErrorList class description
+ * This Class is the class Entity mapping ErrorList Table.
+ * Include all attributes and all get/set function.
+ * @author sunshine
+ */
 public class ErrorList {
 	private int error_id;
 	private String error_info;

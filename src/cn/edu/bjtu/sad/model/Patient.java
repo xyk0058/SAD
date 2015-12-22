@@ -1,5 +1,12 @@
 package cn.edu.bjtu.sad.model;
 
+
+/**
+ * Patient class description
+ * This Class is the class Entity mapping Patient Table.
+ * Include all attributes and all get/set function.
+ * @author sunshine
+ */
 public class Patient {
 	private int patient_id;
 	private String patient_name;
